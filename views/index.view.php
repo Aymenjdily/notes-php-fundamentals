@@ -26,13 +26,22 @@
     ?>
 
     <main class="mx-auto w-full max-w-6xl flex-1 px-6 py-10">
-        <header class="mb-8">
-            <h1 class="text-3xl tracking-tight text-stone-800" style="font-family:'Lora', serif;">
-                My Notes
-            </h1>
+        <header class="mb-8 flex items-end justify-between">
+            <div>
+                <h1 class="text-3xl tracking-tight text-stone-800" style="font-family:'Lora', serif;">
+                    My Notes
+                </h1>
             <p class="mt-1 text-sm text-stone-500" style="font-family:'Lora', serif;">
                 <?= $noteCount ?> note<?= $noteCount === 1 ? '' : 's' ?> in the book
             </p>
+            </div>
+
+            <a href="/note/create" class="group inline-flex items-center gap-2 rounded-lg border border-stone-300 bg-stone-100 px-4 py-2.5 text-sm font-medium text-stone-700 shadow-[2px_2px_0_rgba(120,100,80,0.15)] transition-all hover:bg-stone-200 hover:shadow-[2px_3px_0_rgba(120,100,80,0.2)] hover:-translate-y-0.5 active:translate-y-0 active:shadow-none" style="font-family:'Lora', serif;">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-rose-400 transition-transform group-hover:rotate-12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                </svg>
+                Create your new note
+            </a>
         </header>
 
         <?php if (empty($notes)): ?>

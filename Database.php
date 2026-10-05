@@ -1,40 +1,46 @@
 <?php
 
-    class Database {
+class Database
+{
+    public $connection;
+    public $statement;
 
-        protected static ?PDO $pdo = null;
+    public function __construct($config, $username = 'root', $password = '')
+    {
+        $dsn = 'mysql:' . http_build_query($config, '', ';');
 
-        protected static array $config = [];
+        $this->connection = new PDO($dsn, $username, $password, [
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+        ]);
+    }
 
-        public function __construct(array $config) {
-            self::$config = $config;
+    public function query($query, $params = [])
+    {
+        $this->statement = $this->connection->prepare($query);
+
+        $this->statement->execute($params);
+
+        return $this;
+    }
+
+    public function get()
+    {
+        return $this->statement->fetchAll();
+    }
+
+    public function find()
+    {
+        return $this->statement->fetch();
+    }
+
+    public function findOrFail()
+    {
+        $result = $this->find();
+
+        if (! $result) {
+            abort();
         }
 
-        public function connect(): PDO {
-            if (self::$pdo === null) {
-                $dsn = "mysql:host=" . self::$config['host']
-                     . ";port=" . self::$config['port']
-                     . ";dbname=" . self::$config['name']
-                     . ";charset=utf8mb4";
-
-                self::$pdo = new PDO($dsn, self::$config['username'], self::$config['password'], [
-                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                ]);
-            }
-
-            return self::$pdo;
-        }
-
-        public function query(string $sql, array $params = []): PDOStatement {
-            $statement = $this->connect()->prepare($sql);
-            $statement->execute($params);
-
-            return $statement;
-        }
-
-        public function fetchAll(string $sql, array $params = []): array {
-            return $this->query($sql, $params)->fetchAll();
-        }
-
-    };
+        return $result;
+    }
+}

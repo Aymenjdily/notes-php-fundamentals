@@ -5,9 +5,7 @@
 
     $db = new Database($config['database']);
 
-    $notes = $db->fetchAll(
-        "select * from notes"
-    );
+    $notes = $db->query('select * from notes')->get();
 
     require "views/index.view.php"
 ?>

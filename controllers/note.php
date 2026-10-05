@@ -5,16 +5,12 @@
     $config = require 'config.php';
 
     $db = new Database($config['database']);
+    $currentUserId = 1;
 
-    $id = (int)($_GET['id'] ?? 0);
+    $note = $db->query('select n.*, u.name as author from notes n join users u on u.id = n.user_id where n.id = :id', [
+        'id' => $_GET['id']
+    ])->findOrFail();
 
-    $note = $db->fetchAll(
-        "select n.*, u.name as author from notes n join users u on u.id = n.user_id where n.id = :id",
-        ['id' => $id]
-    )[0] ?? null;
-
-    if (! $note) {
-        abort();
-    }
+    authorize($note['user_id'] === $currentUserId);
 
     require "views/note.view.php";
