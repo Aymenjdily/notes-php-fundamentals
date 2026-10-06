@@ -18,7 +18,7 @@
 </head>
 <body class="flex min-h-screen flex-col bg-[#EFEAE2] antialiased text-stone-800">
 
-    <?php require __DIR__ . '/partials/nav.php'; ?>
+    <?php require __DIR__ . '/../partials/nav.php'; ?>
 
     <main class="mx-auto w-full max-w-3xl flex-1 px-6 py-10">
 
@@ -55,15 +55,23 @@
                 <span class="text-[11px] text-stone-400" style="font-family:'Lora', serif;">
                     written in the notebook
                 </span>
-                <a href="#" class="text-xs text-stone-400 hover:text-rose-400 transition-colors" style="font-family:'Lora', serif;">
-                    edit
-                </a>
+                <div class="flex items-center gap-4">
+                    <a href="/note/edit/<?= $note['id'] ?>" class="text-xs text-stone-400 hover:text-stone-800 transition-colors" style="font-family:'Lora', serif;">
+                        edit
+                    </a>
+                    <form action="/note/delete/<?= $note['id'] ?>" method="POST" onsubmit="return confirm('Tear out this page permanently?')">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button type="submit" class="text-xs text-stone-400 hover:text-rose-500 transition-colors" style="font-family:'Lora', serif;">
+                            delete
+                        </button>
+                    </form>
+                </div>
             </footer>
         </article>
 
     </main>
 
-    <?php require __DIR__ . '/partials/footer.php'; ?>
+    <?php require __DIR__ . '/../partials/footer.php'; ?>
 
 </body>
 </html>

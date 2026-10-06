@@ -25,7 +25,7 @@
 </head>
 <body class="flex min-h-screen flex-col bg-[#EFEAE2] antialiased text-stone-800">
 
-    <?php require __DIR__ . '/partials/nav.php'; ?>
+    <?php require __DIR__ . '/../partials/nav.php'; ?>
 
         <main class="mx-auto w-full max-w-3xl flex-1 px-6 py-10">
 
@@ -82,7 +82,7 @@
 
         </main>
 
-        <?php require __DIR__ . '/partials/footer.php'; ?>
+        <?php require __DIR__ . '/../partials/footer.php'; ?>
 
 </body>
 </html>

@@ -3,11 +3,11 @@
     // Seed users and notes. Run: php seed.php
     // Note: truncates both tables first.
 
-    require 'Database.php';
+    require __DIR__ . '/app/bootstrap.php';
 
-    $config = require 'config.php';
+    use App\Core\Database;
 
-    $db = new Database($config['database']);
+    $db = new Database(config('database'));
 
     $db->query("set foreign_key_checks = 0");
     $db->query("truncate table notes");
